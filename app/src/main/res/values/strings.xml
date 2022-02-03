@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">J86881</string>
+    <string name="add_hero">Add Hero</string>
+    <string name="random_superhero_name">Random SuperHero Name</string>
+    <string name="superheroimage">superheroimage</string>
+    <string name="super_hero_id">Super Hero ID</string>
+    <string name="_777">777</string>
+    <string name="info">info</string>
+    <string name="intelligence">Intelligence</string>
+    <string name="_111">111</string>
+    <string name="strength">Strength</string>
+    <string name="_222">222</string>
+    <string name="durability">Durability</string>
+    <string name="_333">333</string>
+    <string name="power">Power</string>
+    <string name="_444">444</string>
+    <string name="speed">Speed</string>
+    <string name="_555">555</string>
+    <string name="combat">Combat</string>
+    <string name="_666">666</string>
+    <string name="clear">Clear</string>
+    <string name="input_superhero_id">Input SuperHero ID</string>
+    <string name="add_random_hero_to_collection">Add Random Hero To Collection</string>
+    <string name="base_locations">Base Locations</string>
+    <string name="occupation">Occupation</string>
+    <string name="search">Search</string>
+    <string name="settings">Settings</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="_1_731">1-731</string>
+</resources>
