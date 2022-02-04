@@ -15,7 +15,7 @@ class AddHero : SearchActivity() {
     }
     fun addRandomHero(view: View) {
 
-        // Code adapted from
+        //start of adapted from kotlinlang (2022)
         val randomValues = List(10){
             Random.nextInt(1,731)
         }

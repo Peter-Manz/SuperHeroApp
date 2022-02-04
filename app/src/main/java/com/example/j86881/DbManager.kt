@@ -17,7 +17,6 @@ class DbManager(context: Context) {
         heroValues.put("Speed",hero.speed)
         heroValues.put("Durability",hero.durability)
         heroValues.put("Combat",hero.combat)
-
         helper.writableDatabase.insert("HeroTable",null,heroValues)
     }
     fun retrieveAllHeros(): List<Hero>{

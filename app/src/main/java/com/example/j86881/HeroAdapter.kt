@@ -1,5 +1,4 @@
 package com.example.j86881
-
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -13,24 +12,33 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.j86881.databinding.CardviewHeroBinding
+    //start of adapted code from Azhar (2020)
+class HeroAdapter(private val context: Context, heros :MutableList<Hero> = mutableListOf()): RecyclerView.Adapter<HeroAdapter.HeroViewHolder>(){
 
-class HeroAdapter(private val context: Context, heros:MutableList<Hero> = mutableListOf()): RecyclerView.Adapter<HeroAdapter.HeroViewHolder>(){
     var heros = mutableListOf<Hero>()
     var prefsChangedListener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
         notifyDataSetChanged()
     }
+
     init{
         this.heros=heros
     }
-
+    //end of adapted code
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeroAdapter.HeroViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.cardview_hero, parent, false)
         return HeroViewHolder(view)
     }
     override fun onBindViewHolder(holder: HeroAdapter.HeroViewHolder, position: Int) {
         val hero = heros[position]
+
+        //start of adapted code.lucassoftware (2019)
         val context = holder.binding.superHeroImg.context
+        //end of adapted code
+
+        //start adapted from Shithik (2020)
         Glide.with(context).load(hero.image).into(holder.binding.superHeroImg)
+        //end of adapted code
+
         holder.binding.idResultTv.text = hero.id
         holder.binding.nameResult.text = hero.name
         holder.binding.intResult.text = hero.intelligence
@@ -45,7 +53,6 @@ class HeroAdapter(private val context: Context, heros:MutableList<Hero> = mutabl
             intent.putExtra("heroID",hero.id)
             ContextCompat.startActivity(context, intent, Bundle())
         }
-
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val boolVal = prefs.getBoolean("disable",false)
         if(boolVal){
@@ -82,8 +89,6 @@ class HeroAdapter(private val context: Context, heros:MutableList<Hero> = mutabl
             holder.binding.heroIDtv.visibility = View.VISIBLE
             holder.binding.infoBtn.visibility = View.VISIBLE
         }
-
-
     }
     override fun getItemCount(): Int {
         return heros.size
@@ -96,5 +101,4 @@ class HeroAdapter(private val context: Context, heros:MutableList<Hero> = mutabl
         super.onAttachedToRecyclerView(recyclerView)
         PreferenceManager.getDefaultSharedPreferences(recyclerView.context).registerOnSharedPreferenceChangeListener(prefsChangedListener)
     }
-
 }

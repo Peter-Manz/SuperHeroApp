@@ -1,5 +1,4 @@
 package com.example.j86881
-
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.j86881.databinding.ActivityHeroOccupationBinding
@@ -54,7 +53,7 @@ class HeroOccupation : SearchActivity() {
                 }
             } catch (e: IOException) {
                 runOnUiThread {
-                    binding.locResults.text = "There was an error"
+                    binding.locResults.text = "There was an error $e"
                 }
             }
         }

@@ -52,6 +52,7 @@ open class SearchActivity : AppCompatActivity() {
         }
     }
     private fun toggleButtonState(enabled:Boolean){
+        //start of adapted code from Stackoverflow (2013)
         binding.btnSearch.isEnabled = enabled
     }
     fun clearEditTextSearch(view: View){

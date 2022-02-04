@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
-
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,7 +27,11 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         dbManager = DbManager(this)
         loadHeros()
+
+        //start of adapted code from Azhar (2020)
         heroAdapter = HeroAdapter(this,heros)
+        //end of adapted code
+
         binding.recyclerView.adapter = heroAdapter
 
     }
@@ -43,10 +46,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
     private fun loadHeros(){
+        //start of adapted code from bezkoder (2021)
         var heroList = listOf<Hero>()
         heroList = dbManager.retrieveAllHeros()
         heros = heroList.toMutableList()
-
+        //end of adapted code
     }
     private fun refreshRecyclerView(){
         loadHeros()
