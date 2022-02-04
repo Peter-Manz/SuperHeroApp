@@ -1,5 +1,6 @@
 package com.example.j86881
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -13,10 +14,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.j86881.databinding.CardviewHeroBinding
 
-class HeroAdapter : RecyclerView.Adapter<HeroAdapter.HeroViewHolder>(){
+class HeroAdapter(private val context: Context, heros:MutableList<Hero> = mutableListOf()): RecyclerView.Adapter<HeroAdapter.HeroViewHolder>(){
     var heros = mutableListOf<Hero>()
     var prefsChangedListener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
         notifyDataSetChanged()
+    }
+    init{
+        this.heros=heros
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeroAdapter.HeroViewHolder {

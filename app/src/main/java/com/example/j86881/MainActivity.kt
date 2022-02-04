@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     lateinit var heroAdapter: HeroAdapter
     lateinit var preferenceManager: SharedPreferences
+    private lateinit var dbManager : DbManager
+    private var heros = mutableListOf<Hero>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,20 +26,31 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        heroAdapter = HeroAdapter()
+        dbManager = DbManager(this)
+        loadHeros()
+        heroAdapter = HeroAdapter(this,heros)
         binding.recyclerView.adapter = heroAdapter
 
-        val swipeCallBack = SwipeCallBack()
-        val touchHelper = ItemTouchHelper(swipeCallBack)
-        touchHelper.attachToRecyclerView(binding.recyclerView)
     }
     val addHeroResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
     {result ->
         if(result.resultCode == Activity.RESULT_OK){
             val newHeroList = result.data?.getSerializableExtra("hero") as Hero
+            dbManager.create(newHeroList)
             heroAdapter.heros.add(0,newHeroList)
             heroAdapter.notifyItemInserted(0)
+            refreshRecyclerView()
         }
+    }
+    private fun loadHeros(){
+        var heroList = listOf<Hero>()
+        heroList = dbManager.retrieveAllHeros()
+        heros = heroList.toMutableList()
+
+    }
+    private fun refreshRecyclerView(){
+        loadHeros()
+        heroAdapter.notifyDataSetChanged()
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main,menu)
@@ -56,25 +69,9 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-    inner class SwipeCallBack : ItemTouchHelper.Callback(){
-        override fun getMovementFlags(
-            recyclerView: RecyclerView,
-            viewHolder: RecyclerView.ViewHolder): Int {
-            val deleteFlag = ItemTouchHelper.LEFT
-            return makeMovementFlags(0,deleteFlag)
-        }
-        override fun onMove(
-            recyclerView: RecyclerView,
-            viewHolder: RecyclerView.ViewHolder,
-            target: RecyclerView.ViewHolder
-        ): Boolean {
-            return false
-        }
-        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            if (direction == ItemTouchHelper.LEFT){
-                heroAdapter.heros.removeAt(viewHolder.bindingAdapterPosition)
-                heroAdapter.notifyItemRemoved(viewHolder.bindingAdapterPosition)}
-        }
 
+    override fun onDestroy(){
+        dbManager.closeConnection()
+        super.onDestroy()
     }
 }
